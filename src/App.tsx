@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import { ThemeProvider } from '@mui/material';
 import theme from './theme';
+import PipelineCreate from './pages/PipelineCreate';
 import { ReactFlowProvider } from 'reactflow';
 
 function App() {
@@ -14,6 +15,10 @@ function App() {
           <div>
             <Routes>
               <Route path="*" element={<Home />}></Route>
+              <Route
+                path="/pipeline_create"
+                element={<PipelineCreate />}
+              ></Route>
             </Routes>
           </div>
         </ReactFlowProvider>

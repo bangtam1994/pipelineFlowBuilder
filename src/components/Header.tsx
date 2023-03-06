@@ -22,7 +22,7 @@ export default function Header() {
           sx={{ cursor: 'pointer' }}
           onClick={() => navigate('/')}
         >
-          Pipeline Creator
+          Pipeline Builder
         </Typography>
       </Toolbar>
     );
