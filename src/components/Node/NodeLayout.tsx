@@ -8,7 +8,7 @@ interface NodeLayoutProps {
   node_id: string;
   node_type: string;
   node_name: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const NodeLayout = ({
@@ -21,7 +21,6 @@ const NodeLayout = ({
   const currentEdges = getEdges();
   const currentNode = getNode(node_id);
   const onDeleteNode = () => {
-    // setNodes((nds) => nds.filter((node) => node.id !== id));
     const connectedEdges = getConnectedEdges(
       [currentNode] as any,
       currentEdges
@@ -56,7 +55,7 @@ const NodeLayout = ({
           }}
         >
           <Box>{node_name}</Box>
-          {children}
+          {children && children}
         </Box>
       </Box>
     </CustomHandles>

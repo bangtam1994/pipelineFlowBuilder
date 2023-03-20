@@ -1,13 +1,13 @@
-import { Box, Fab, Typography } from '@mui/material';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import React, { memo, useState } from 'react';
+import { Fab, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Node } from 'reactflow';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 
 interface FileInputProps {
   node_id: string;
   handleNodeDataUpdate: (value: Node) => void;
-  handleSubmitFile: (file: File) => void;
+  handleSubmitFile: (file: FormData) => void;
 }
 const FileInput = ({ node_id, handleSubmitFile }: FileInputProps) => {
   const [fileList, setFileList] = useState<any>([]);
@@ -17,7 +17,10 @@ const FileInput = ({ node_id, handleSubmitFile }: FileInputProps) => {
       'image/*': [],
       'video/*': [],
     },
-    onDrop: (acceptedFiles) => {
+    onDrop: async (acceptedFiles) => {
+      const formData = new FormData();
+      formData.append('video_file', acceptedFiles[0]);
+
       setFileList(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -25,13 +28,8 @@ const FileInput = ({ node_id, handleSubmitFile }: FileInputProps) => {
           })
         )
       );
-      handleSubmitFile(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )[0]
-      );
+
+      handleSubmitFile(formData);
     },
   });
 

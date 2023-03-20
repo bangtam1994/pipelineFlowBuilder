@@ -62,9 +62,13 @@ const CustomControls = ({
                 handleClose();
               };
 
-              const result = renderNodeType(service.service_name);
+              const result = renderNodeType(service.type);
               return (
-                <MenuItem onClick={handleClick} disableRipple key={service.id}>
+                <MenuItem
+                  onClick={handleClick}
+                  disableRipple
+                  key={service.data.label}
+                >
                   <result.icon />
                   {result.label}
                 </MenuItem>

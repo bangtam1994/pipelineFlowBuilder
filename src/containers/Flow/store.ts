@@ -13,12 +13,14 @@ import {
   applyEdgeChanges,
   MarkerType,
 } from 'reactflow';
-import { Service } from '../types';
+import { PipelineForm, Service } from '../types';
 
 export type RFState = {
   nodes: Node[];
   edges: Edge[];
   services: Service[];
+  pipelineCreateForm: PipelineForm;
+  onPipelineCreateForm: (changes: any) => void;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
@@ -31,6 +33,12 @@ const useStore = create<RFState>((set, get) => ({
   nodes: [],
   edges: [],
   services: [],
+  pipelineCreateForm: { location_id: '', pipeline_name: '' },
+  onPipelineCreateForm: (changes: any) => {
+    set({
+      pipelineCreateForm: { ...get().pipelineCreateForm, ...changes },
+    });
+  },
   onNodesChange: (changes: NodeChange[]) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),

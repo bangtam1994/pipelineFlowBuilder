@@ -9,12 +9,25 @@ export interface ServiceDS {
   input: string;
   output: string;
   description: string;
+  data: any;
+  type: ServiceType;
+}
+
+export enum PipelineStatus {
+  Start = 'started',
+  Running = 'running',
+  Finished = 'finished',
+  Stopped = 'stopped',
+  Error = 'error',
 }
 
 export enum ServiceType {
   Reader = 'reader',
-  DetectionYoloV8 = 'detectionYolov8',
-  Tracking = 'tracking-botsort',
+  DetectionYolo = 'detectionYolo',
+  Tracking = 'trackingBotsort',
+  Debug = 'debug',
+  Output = 'outputVideo',
+  Resizer = 'resizer',
 }
 
 export interface Service {
@@ -22,6 +35,13 @@ export interface Service {
   id: string;
   [x: string | number | symbol]: unknown;
 }
-export interface ReaderPayload extends Service {
-  file: File;
+
+export interface Location {
+  id: string;
+  location_name: string;
+}
+
+export interface PipelineForm {
+  location_id: string;
+  pipeline_name: string;
 }

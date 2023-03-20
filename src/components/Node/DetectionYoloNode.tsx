@@ -1,31 +1,27 @@
-import { Box, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import React, { memo, useState } from 'react';
-import CustomHandles from '../../containers/Flow/CustomHandles';
+import React, { memo } from 'react';
 import useStore from '../../containers/Flow/store';
 import { ServiceType } from '../../containers/types';
 import SelectInput from '../SelectInput';
 import { SliderInput } from '../SliderInput';
 import NodeLayout from './NodeLayout';
 
-interface DetectionYolov8NodeProps {
-  data: any;
+interface DetectionYoloNodeProps {
+  data: { label: string; config_names: string[] };
   id: string;
 }
 
-const DetectionYolov8Node = ({ id, data }: DetectionYolov8NodeProps) => {
+const DetectionYoloNode = ({ id, data }: DetectionYoloNodeProps) => {
+  const { label, config_names } = data;
+
   const updateNodeData = useStore((state) => state.updateNodeData);
   const handleSubmitThreshold = (value: number | number[]) => {
-    updateNodeData({ id, type: ServiceType.DetectionYoloV8, threshold: value });
+    updateNodeData({ id, type: ServiceType.DetectionYolo, threshold: value });
   };
   const handleSubmitConfig = (conf: string[]) => {
-    updateNodeData({ id, type: ServiceType.DetectionYoloV8, names: conf });
+    updateNodeData({ id, type: ServiceType.DetectionYolo, names: conf });
   };
   return (
-    <NodeLayout
-      node_id={id}
-      node_name="Detection Yolo V8"
-      node_type="detectionYolov8"
-    >
+    <NodeLayout node_id={id} node_name={label} node_type="detectionYolo">
       <SliderInput
         title="Threshold"
         step={0.1}
@@ -33,11 +29,11 @@ const DetectionYolov8Node = ({ id, data }: DetectionYolov8NodeProps) => {
       />
       <SelectInput
         title="Detection Configuration"
-        choices={['config1', 'config2', 'config3', 'config4']} // TODO: GET list
+        choices={config_names}
         handleSubmit={handleSubmitConfig}
       />
     </NodeLayout>
   );
 };
 
-export default memo(DetectionYolov8Node);
+export default memo(DetectionYoloNode);
