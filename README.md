@@ -2,7 +2,7 @@
 
 
 <p align="center">
-	<img src="https://im3.ezgif.com/tmp/ezgif-3-0da20830d8.gif" width="800">
+	<img src="https://i.ibb.co/qrsx6L4/Screenshot-from-2023-04-11-22-47-26.png" width="800">
 </p>
 
 
